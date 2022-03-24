@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('visit', function (Blueprint $table) {
+        Schema::create('visits', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('checkin')->nullable();
-            $table->timestamp('checkout')->nullable();
-            $table->json('workshops');
+            $table->dateTime('checkin')->nullable();
+            $table->dateTime('checkout')->nullable();
+            $table->json('workshops')->nullable();
             $table->string('webling_user_id');
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('visit');
+        Schema::dropIfExists('visits');
     }
 };
