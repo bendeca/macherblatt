@@ -1,7 +1,13 @@
 .DS_Store
-node_modules/
-/dist
+/checkin-app/node_modules/
+/checkin-app/dist
+/checkin-app/public
+
+/vendor
 /public
+
+# env file
+.env
 
 # Log files
 npm-debug.log*
