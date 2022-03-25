@@ -8,36 +8,36 @@ export default {
       shops: {
         bike: {
           title: "Velo Werkstatt",
-          image: "velo",
+          slug: "velo",
           isActive: false,
         },
         wood: {
           title: "Holz Werkstatt",
-          image: "holz",
+          slug: "holz",
           isActive: false,
 
         },
         pottery: {
           title: "Ton Werkstatt",
-          image: "ton",
+          slug: "ton",
           isActive: false,
 
         },
         digital: {
           title: "Digital Werkstatt",
-          image: "digital",
+          slug: "digital",
           isActive: false,
 
         },
         textile: {
           title: "Textil Atelier",
-          image: "textil",
+          slug: "textil",
           isActive: false,
 
         },
         screenPrint: {
           title: "Siebdruck Atelier",
-          image: "siebdruck",
+          slug: "siebdruck",
           isActive: false,
         }
       }
@@ -48,8 +48,27 @@ export default {
   },
 methods: {
   checkout() {
-    // send data to db
-    // 
+    fetch('/visits/checkout', { 
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+      },
+    body: JSON.stringify({ 
+        webling_user_id: this.$route.query.userId,
+        workshops:  this.getUsedWorkshops() 
+      })
+    }).then( data => {
+      this.$router.push({path: '/',});
+    })
+  },
+  getUsedWorkshops() {
+    let used = [];
+    for(const shop in this.shops){
+      if(this.shops[shop].isActive) {
+        used.push(shop);
+      }
+    }
+    return used;
   },
 },
 computed: {
@@ -74,7 +93,7 @@ computed: {
     <div v-for="(shop, key, index) in shops" :key="index">
       <div class="shop-panel" :class="{ active: false }">
         <label class="shop-panel-container" :class="{ checked: shops[key].isActive }">
-            <img class="shop-panel-bg" :src="'./src/assets/' + shops[key].image + '.jpeg'"/>
+            <img class="shop-panel-bg" :src="'./assets/' + shops[key].slug + '.jpeg'"/>
             <input type="checkbox" :id="key" v-model="shops[key].isActive">
         </label>
       </div>

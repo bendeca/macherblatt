@@ -38,7 +38,6 @@ class VisitController extends Controller
     {
         $visit = new Visit();
         $visit->setAttribute('webling_user_id', $request->get('webling_user_id'));
-        // $visit->setAttribute('workshops', json_encode($request->get('workshops')));
         $visit->setAttribute('checkin', date('Y-m-d H:i:s'));
         $visit->save();
         return true;

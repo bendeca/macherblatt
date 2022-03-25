@@ -17,6 +17,10 @@ $router->get('/', function () use ($router) {
     return view('app');
 });
 
+$router->get('/checkout', function () use ($router) {
+    return view('app');
+});
+
 $router->post('/visits/checkin', 'VisitController@checkin');
 $router->post('/visits/checkout', 'VisitController@checkout');
 

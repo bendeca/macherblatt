@@ -4,7 +4,7 @@ import QrScanner from 'qr-scanner';
 export default {
 
   mounted() {
-    this.audio = new Audio('./src/assets/beep.mp3');
+    this.audio = new Audio('./assets/beep.mp3');
     this.scanner = new QrScanner(this.$refs.video, result => this.setResult(result), {
         onDecodeError: error => {
             this.camQrResult = '';
@@ -59,6 +59,13 @@ methods: {
                         mitgliedart = mitgliedart.slice(-1)[0];
                         this.camQrResult = 'Hallo ' + data[0].properties.Vorname;
                         console.log(data[0].properties[mitgliedart]);
+                        fetch('/visits/checkin', { 
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json'
+                            },
+                          body: JSON.stringify({ webling_user_id: data[0].properties.Mitgliedsnummer })
+                          })
                     } else {
                         this.$router.push({path: '/checkout', query: {userId: data[0].properties.Mitgliedsnummer }});
                     }
